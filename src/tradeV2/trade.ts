@@ -827,6 +827,8 @@ export class TradeV2 extends Base {
       tokenAccounts: TokenAccount[]
       associatedOnly: boolean
       checkCreateATAOwner: boolean
+      receiveWallet: PublicKey,
+      receiveTokenAccount: PublicKey,
     }
     routeProgram: PublicKey
     computeBudgetConfig?: ComputeBudgetConfig
@@ -875,25 +877,32 @@ export class TradeV2 extends Base {
       throw Error('input account check error')
     }
 
-    const destinationToken = await this._selectOrCreateTokenAccount({
-      programId: outputProgramId,
-      mint: outputMint,
-      tokenAccounts: ownerInfo.tokenAccounts,
-      createInfo: {
-        connection,
-        payer: ownerInfo.wallet,
-        amount: 0,
+    let destinationToken = ownerInfo.receiveTokenAccount
+    if (!destinationToken) {
+      const destinationOwner = ownerInfo.receiveWallet ? ownerInfo.receiveWallet : ownerInfo.wallet
+      const destinationTokenAccount = ownerInfo.receiveWallet
+        ? [] : ownerInfo.tokenAccounts
+       destinationToken = await this._selectOrCreateTokenAccount({
+        programId: outputProgramId,
+        mint: outputMint,
+        tokenAccounts: destinationTokenAccount,
+        createInfo: {
+          connection,
+          payer: ownerInfo.wallet,
+          amount: 0,
 
-        frontInstructions,
-        endInstructions: outSolBalance ? endInstructions : undefined,
-        signers,
-        frontInstructionsType,
-        endInstructionsType,
-      },
-      owner: ownerInfo.wallet,
-      associatedOnly: ownerInfo.associatedOnly,
-      checkCreateATAOwner: ownerInfo.checkCreateATAOwner,
-    })
+          frontInstructions,
+          endInstructions: outSolBalance ? endInstructions : undefined,
+          signers,
+          frontInstructionsType,
+          endInstructionsType,
+        },
+        owner: destinationOwner,
+        associatedOnly: ownerInfo.associatedOnly,
+        checkCreateATAOwner: ownerInfo.checkCreateATAOwner,
+      })
+    }
+
 
     let routeToken: PublicKey | undefined = undefined
     if (swapInfo.routeType === 'route') {

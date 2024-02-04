@@ -5,7 +5,7 @@ import fs from "fs";
 class Package {
   public contents;
 
-  constructor(contents) {
+  constructor(contents: string) {
     try {
       this.contents = JSON.parse(contents);
     } catch (error) {
