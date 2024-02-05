@@ -144,7 +144,7 @@ export declare class TradeV2 extends Base {
             associatedOnly: boolean;
             checkCreateATAOwner: boolean;
             receiveWallet: PublicKey;
-            receiveTokenAccount: PublicKey;
+            receiveTokenAccount: PublicKey | null;
         };
         routeProgram: PublicKey;
         computeBudgetConfig?: ComputeBudgetConfig;
