@@ -67,8 +67,8 @@ export interface ComputeAmountOutRouteLayout {
     expirationTime: number | undefined;
     allTrade: boolean;
 }
-type ComputeAmountOutLayout = ComputeAmountOutAmmLayout | ComputeAmountOutRouteLayout;
-type makeSwapInstructionParam = {
+export type ComputeAmountOutLayout = ComputeAmountOutAmmLayout | ComputeAmountOutRouteLayout;
+export type makeSwapInstructionParam = {
     ownerInfo: {
         wallet: PublicKey;
         sourceToken: PublicKey;
