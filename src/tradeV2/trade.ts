@@ -99,9 +99,9 @@ export interface ComputeAmountOutRouteLayout {
 
   allTrade: boolean
 }
-type ComputeAmountOutLayout = ComputeAmountOutAmmLayout | ComputeAmountOutRouteLayout
+export type ComputeAmountOutLayout = ComputeAmountOutAmmLayout | ComputeAmountOutRouteLayout
 
-type makeSwapInstructionParam = {
+export type makeSwapInstructionParam = {
   ownerInfo: {
     wallet: PublicKey
     // tokenAccountA: PublicKey
