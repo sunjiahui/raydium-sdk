@@ -37,8 +37,7 @@
     "install-peers": "ts-node ./misc/install-peers.ts",
     "build": "yarn build-lib",
     "push": "yarn build && yarn publish",
-    "prepare": "husky install",
-    "postinstall": "yarn build-lib && yarn build-dist"
+    "prepare": "husky install"
   },
   "peerDependencies": {
     "@solana/web3.js": "^1.73.0"
